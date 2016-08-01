@@ -1,7 +1,7 @@
 {
   "name": "node-pg-sqlbuilder",
   "description": "a module to build pg sql.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Nuno Luz <nuno.maluz@gmail.com> (http://nluz.mobaton.com)",
   "keywords": [
     "pg",

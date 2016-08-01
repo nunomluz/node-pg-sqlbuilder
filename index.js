@@ -61,9 +61,11 @@ function Builder() {
     };
 
     // INSERT
-    this.insert = function(fields) {
+    this.insert = function() {
         t.type = 'INSERT';
-        t.insertFields = t.insertFields.concat(_.flatten(arguments));
+        t.insertFields = t.insertFields.concat(_.flatten(_.map(_.flatten(arguments), function(arg) {
+            return arg.split(/[\s]*,[\s]*/);
+        })));
         return t;
     };
 
@@ -75,6 +77,9 @@ function Builder() {
     this.entry = function(values) {
         t.insertCurrentEntry++;
         t.insertEntries.push([]);
+        if(!values || values.length <= 0) {
+            values = _.map(_.range(1, t.insertFields.length + 1), function(i) { return '$' + (i * (t.insertCurrentEntry + 1)); });
+        }
         return t.values(values);
     };
 
@@ -180,8 +185,8 @@ function Builder() {
             query += ' (' +  entry.join(',') + ')'; 
         });
        
-        if(t.returnFields.length > 0) {
-            query += ' RETURNING ' + t.returnFields.join(',');
+        if(t.resultFields.length > 0) {
+            query += ' RETURNING ' + t.resultFields.join(',');
         }
         
         return query;
@@ -197,8 +202,8 @@ function Builder() {
         // conditions; WHERE
         query += _buildConditions();
 
-        if(t.returnFields.length > 0) {
-            query += ' RETURNING ' + t.returnFields.join(',');
+        if(t.resultFields.length > 0) {
+            query += ' RETURNING ' + t.resultFields.join(',');
         }
         
         return query;
@@ -210,8 +215,8 @@ function Builder() {
         // conditions; WHERE
         query += _buildConditions();
 
-        if(t.returnFields.length > 0) {
-            query += ' RETURNING ' + t.returnFields.join(',');
+        if(t.resultFields.length > 0) {
+            query += ' RETURNING ' + t.resultFields.join(',');
         }
         
         return query;
@@ -298,8 +303,8 @@ sql.insert = function() {
     return new Builder().insert(arguments);
 };
 
-sql.update = function() {
-    return new Builder().update(arguments);
+sql.update = function(table) {
+    return new Builder().update(table);
 };
 
 sql.delete = sql.del = function() {

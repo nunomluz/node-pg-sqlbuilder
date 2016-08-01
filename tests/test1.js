@@ -62,4 +62,31 @@ describe('node-sql-builder', function() {
         });
     });
     
+    describe('insert', function() {
+        it('should build basic insert without ending', function() {
+            assert.equal(
+                sql.insert('test_id,name').into('tbl_test').entry().returning('test_id').build(),
+                'INSERT INTO tbl_test(test_id,name) VALUES ($1,$2) RETURNING test_id'
+            );            
+        });
+    });
+
+    describe('update', function() {
+        it('should build basic update without ending', function() {
+            assert.equal(
+                sql.update('tbl_test').set(['name=\'test\'', 'ts=\'2016-01-01\'']).returning('test_id').build(),
+                'UPDATE tbl_test SET name=\'test\',ts=\'2016-01-01\' RETURNING test_id'
+            );            
+        });
+    });
+
+    describe('delete', function() {
+        it('should build basic delete without ending', function() {
+            assert.equal(
+                sql.delete().from('tbl_test').returning('test_id').build(),
+                'DELETE FROM tbl_test RETURNING test_id'
+            );            
+        });
+    });
+    
 });
