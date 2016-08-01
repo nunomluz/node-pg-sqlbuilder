@@ -1,0 +1,32 @@
+{
+  "name": "node-pg-sqlbuilder",
+  "description": "a module to build pg sql.",
+  "version": "1.0.0",
+  "author": "Nuno Luz <nuno.maluz@gmail.com> (http://nluz.mobaton.com)",
+  "keywords": [
+    "pg",
+    "postgres",
+    "sql",
+	  "builder",
+    "generator"
+  ],
+  "scripts": {
+    "test": "mocha --bail \"tests/\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nunomluz/node-pg-sqlbuilder.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nunomluz/node-pg-sqlbuilder/issues"
+  },
+  "devDependencies": {
+    "chai": "~3.5.0",
+    "mocha": "~2.2.5"
+  },
+  "dependencies": {
+    "pg-escape": "~0.2.0",
+    "underscore": "~1.8.3"
+  }
+}
