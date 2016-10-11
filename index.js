@@ -132,7 +132,7 @@ function Builder() {
             }
 
             if(hasConditionsOr) {
-                sql += (hasConditionsAnd ? ' AND ' : '') + '(' + t.conditionsAnd.join(' OR ') + ')';
+                sql += (hasConditionsAnd ? ' AND ' : '') + '(' + t.conditionsOr.join(' OR ') + ')';
             }
         }
         return sql;
